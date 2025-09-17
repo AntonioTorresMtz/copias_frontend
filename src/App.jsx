@@ -7,6 +7,8 @@ import Home from "./components/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ConfigUsers from "./components/configuracion/ConfigUsers";
 import ConfigAddUser from "./components/configuracion/ConfigAddUser";
+import CopiasVenta from "./components/copias/CopiasVenta";
+
 function App() {
   const Info = () => {
     return <h1>Info</h1>;
@@ -44,6 +46,7 @@ function App() {
           />
           <Route path="/about" element={<About />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/copiasVenta" element={<CopiasVenta />} />
           <Route path="/login" element={<Login />} />
           <Route path="/crear_usuario" element={<ConfigAddUser />} />
           <Route

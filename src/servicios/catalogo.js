@@ -19,4 +19,16 @@ export default {
   patchActualizarUsuario(id, data) {
     return cliente.patch(`/usuarios/${id}`, data);
   },
+  getObtenerServicios() {
+    return cliente.get(`/servicios`);
+  },
+  getObtenerServiciosClave(clave) {
+    return cliente.get(`/servicios/buscarServicioClave/${clave}`);
+  },
+  getObtenerHojas() {
+    return cliente.get(`/hojas`);
+  },
+  getObtenerColores() {
+    return cliente.get(`/colores`);
+  },
 };
