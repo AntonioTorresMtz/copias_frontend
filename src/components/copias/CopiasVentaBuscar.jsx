@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import catalogo from "../../servicios/catalogo";
+import CopiasAutocomServ from "./CopiasAutocomServ";
 
 const CopiasVentaBuscar = ({ onProductoEncontrado }) => {
   const [claveProductos, setClaveProductos] = useState("");
@@ -12,7 +13,6 @@ const CopiasVentaBuscar = ({ onProductoEncontrado }) => {
     try {
       const response = await catalogo.getObtenerServiciosClave(claveProductos);
       console.log(response);
-
       if (response.data.codigo === 200 && response.data.data.length > 0) {
         onProductoEncontrado(response.data.data[0]); // Enviamos el producto al padre
         console.log("Producto encontrado:", response.data.data[0]);

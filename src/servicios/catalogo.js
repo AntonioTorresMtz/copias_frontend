@@ -31,4 +31,7 @@ export default {
   getObtenerColores() {
     return cliente.get(`/colores`);
   },
+  postInsertarVentaCopias(data) {
+    return cliente.post(`/ventas/InsertarDetalleVenta`, data);
+  },
 };

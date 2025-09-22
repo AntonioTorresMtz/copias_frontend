@@ -2,16 +2,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 import catalogo from "../../servicios/catalogo";
 
-const CopiasTablaDetalle = ({ filas, setFilas }) => {
+const CopiasTablaDetalle = ({ filas, setFilas, validar }) => {
   const [hojas, setHojas] = useState([]);
   const [colores, setColores] = useState([]);
   const [caras, setCaras] = useState([
     {
-      PK_cara: 2,
+      PK_cara: 1,
       tipo_cara: "Una cara",
     },
     {
-      PK_cara: 1,
+      PK_cara: 2,
       tipo_cara: "Doble cara",
     },
   ]);
@@ -77,7 +77,7 @@ const CopiasTablaDetalle = ({ filas, setFilas }) => {
     actualizarImporte(id);
   };
 
-    const actualizarDesperdicio = (id, desperdicio) => {
+  const actualizarDesperdicio = (id, desperdicio) => {
     setFilas((prevFilas) =>
       prevFilas.map((fila) =>
         fila.id === id ? { ...fila, desperdicio } : fila
@@ -151,11 +151,13 @@ const CopiasTablaDetalle = ({ filas, setFilas }) => {
               </td>
               <td className="py-2 px-4">
                 <select
-                  value={fila.hoja || ""} // aquí guardamos qué hoja está seleccionada en la fila
-                  onChange={
-                    (e) => actualizarHoja(fila.id, parseInt(e.target.value)) // pasamos el id de la fila y la hoja seleccionada
+                  value={fila.hoja || ""}
+                  onChange={(e) =>
+                    actualizarHoja(fila.id, parseInt(e.target.value))
                   }
-                  className="border rounded-md p-1"
+                  className={`border rounded-md p-1 ${
+                    validar && !fila.hoja ? "border-red-500" : ""
+                  }`}
                 >
                   <option value="">-- Selecciona --</option>
                   {hojas.map((hoja) => (
@@ -172,7 +174,9 @@ const CopiasTablaDetalle = ({ filas, setFilas }) => {
                   onChange={
                     (e) => actualizarColor(fila.id, parseInt(e.target.value)) // pasamos el id de la fila y la hoja seleccionada
                   }
-                  className="border rounded-md p-1"
+                  className={`border rounded-md p-1 ${
+                    validar && !fila.color ? "border-red-500" : ""
+                  }`}
                 >
                   <option value="">-- Selecciona --</option>
                   {colores.map((color) => (
@@ -189,7 +193,9 @@ const CopiasTablaDetalle = ({ filas, setFilas }) => {
                   onChange={
                     (e) => actualizarCara(fila.id, parseInt(e.target.value)) // pasamos el id de la fila y la hoja seleccionada
                   }
-                  className="border rounded-md p-1"
+                  className={`border rounded-md p-1 ${
+                    validar && !fila.cara ? "border-red-500" : ""
+                  }`}
                 >
                   <option value="">-- Selecciona --</option>
                   {caras.map((cara) => (
@@ -204,7 +210,10 @@ const CopiasTablaDetalle = ({ filas, setFilas }) => {
                   type="number"
                   value={fila.desperdicio}
                   onChange={(e) =>
-                    actualizarDesperdicio(fila.id, parseFloat(e.target.value) || 0)
+                    actualizarDesperdicio(
+                      fila.id,
+                      parseFloat(e.target.value) || 0
+                    )
                   }
                   className="w-20 border rounded-md p-1"
                 />
