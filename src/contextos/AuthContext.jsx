@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("usuario", usuario.nombre_usuario);
     localStorage.setItem("nombre", usuario.nombre_real);
     localStorage.setItem("permisos", usuario.permisos);
+    localStorage.setItem("idUsuario", usuario.PK_usuario);
   };
 
   // Función para cerrar sesión

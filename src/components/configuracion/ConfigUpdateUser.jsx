@@ -39,7 +39,10 @@ const ConfigUpdateUser = ({ isOpen, onClose, listaUsuarios, userData }) => {
     };
     console.log(datos);
     try {
-      const response = await catalogo.patchActualizarUsuario(data.PK_usuario, datos); // Asegúrate de invocar la función
+      const response = await catalogo.patchActualizarUsuario(
+        data.PK_usuario,
+        datos
+      ); // Asegúrate de invocar la función
       if (response.data.codigo == 201) {
         mensajeExito();
         cerrarFormulario();

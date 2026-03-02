@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import catalogo from "../../servicios/catalogo";
 import CopiasAutocomServ from "./CopiasAutocomServ";
 
 const CopiasVentaBuscar = ({ onProductoEncontrado }) => {
+  const [opciones, setOpciones] = useState([]);
   const [claveProductos, setClaveProductos] = useState("");
+
+  const obtenerServicios = async () => {
+    try {
+      const response = await catalogo.getObtenerServicios();
+      const opcionesData = response.data.data; // Guarda los datos en una variable temporal
+      setOpciones(opcionesData);
+    } catch (error) {
+      console.error("Error al cargar los datos", error.response.data);
+    }
+  };
+
+  useEffect(() => {
+    obtenerServicios();
+  }, []);
 
   const handleInputChange = (e) => {
     setClaveProductos(e.target.value); // Actualizar el estado del producto
@@ -30,13 +45,7 @@ const CopiasVentaBuscar = ({ onProductoEncontrado }) => {
     <div className="p-4 bg-gray-100 rounded-md shadow-md">
       <h2 className="text-xl font-bold mb-2">Buscar Producto</h2>
       <div className="flex gap-2">
-        <input
-          type="text"
-          placeholder="Clave del producto"
-          value={claveProductos}
-          onChange={handleInputChange}
-          className="border border-gray-300 p-2 rounded-md flex-1"
-        />
+        <CopiasAutocomServ opciones={opciones} clave={claveProductos} setClave={setClaveProductos}/>
         <button
           onClick={handleBuscar}
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"

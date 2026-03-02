@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 
 function CopiasCerrarVenta({ servicios, limpiarListaServicios, setValidar }) {
+  const idUsuario = localStorage.getItem("idUsuario");
 
   const handleCerrarVenta = async () => {
     if (servicios.length === 0) {
@@ -27,7 +28,7 @@ function CopiasCerrarVenta({ servicios, limpiarListaServicios, setValidar }) {
     }
 
     try {
-      const response = await catalogo.postInsertarVentaCopias(servicios); // 👈 Envía el array directamente
+      const response = await catalogo.postInsertarVentaCopias(idUsuario, servicios); // 👈 Envía el array directamente
       console.log(response);
       if (response.data.codigo === 201) {
         limpiarListaServicios();

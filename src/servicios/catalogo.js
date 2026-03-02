@@ -31,7 +31,22 @@ export default {
   getObtenerColores() {
     return cliente.get(`/colores`);
   },
-  postInsertarVentaCopias(data) {
-    return cliente.post(`/ventas/InsertarDetalleVenta`, data);
+  postInsertarVentaCopias(id, data) {
+    return cliente.post(`/ventas/InsertarDetalleVenta/${id}`, data);
   },
+  getObtenerVentas() {
+    return cliente.get(`/ventas`);
+  },
+  getObtenerVentasHoy(){
+    return cliente.get(`/ventas/obtenerVentas`)
+  },
+  patchCancelarVena(data) {
+    return cliente.patch(`/ventas/cancelarVenta`, data);
+  },
+  getObtenerDetalleVentas(id) {
+    return cliente.get(`ventas/obtenerDetalleVentas/${id}`);
+  },
+  postObtenerVentasFiltro(data){
+    return cliente.post(`/ventas/obtenerVentasFiltrado`, data)
+  }
 };

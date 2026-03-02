@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 
-const CopiasAutocomServ = ({ opciones }) => {
+const CopiasAutocomServ = ({ opciones, clave, setClave }) => {
   const [busqueda, setBusqueda] = useState("");
   const [filtradas, setFiltradas] = useState([]);
 
   const handleChange = (e) => {
-    const valor = e.target.value;
-    setBusqueda(valor);
+    const clave = e.target.value;
+    setClave(clave);
 
-    if (valor.trim() === "") {
+    if (clave.trim() === "") {
       setFiltradas([]);
       return;
     }
 
     // Filtrar opciones que empiecen con la letra escrita
     const resultados = opciones.filter((op) =>
-      op.tipo_impresion.toLowerCase().startsWith(valor.toLowerCase())
+      op.tipo_impresion.toLowerCase().startsWith(clave.toLowerCase())
     );
     setFiltradas(resultados);
   };
@@ -24,7 +24,7 @@ const CopiasAutocomServ = ({ opciones }) => {
     <div className="relative w-64">
       <input
         type="text"
-        value={busqueda}
+        value={clave}
         onChange={handleChange}
         placeholder="Buscar impresión..."
         className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -37,7 +37,7 @@ const CopiasAutocomServ = ({ opciones }) => {
               key={index}
               className="px-3 py-2 hover:bg-blue-100 cursor-pointer"
               onClick={() => {
-                setBusqueda(op.tipo_impresion);
+                setClave(op.tipo_impresion);
                 setFiltradas([]);
               }}
             >

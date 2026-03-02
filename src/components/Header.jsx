@@ -22,6 +22,7 @@ function classNames(...classes) {
 
 export default function Header() {
   const { logout } = useAuth();
+  const permisos = localStorage.getItem("permisos");
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -93,14 +94,16 @@ export default function Header() {
                     Tu perfil
                   </a>
                 </MenuItem>
-                <MenuItem>
-                  <Link
-                    to ={"/config_users"}
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Configuracion
-                  </Link>
-                </MenuItem>
+                {Number(permisos) === 1 && (
+                  <MenuItem>
+                    <Link
+                      to="/config_users"
+                      className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                    >
+                      Configuración
+                    </Link>
+                  </MenuItem>
+                )}
                 <MenuItem>
                   <a
                     onClick={logout}

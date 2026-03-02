@@ -5,6 +5,7 @@ import catalogo from "../../servicios/catalogo";
 const CopiasTablaDetalle = ({ filas, setFilas, validar }) => {
   const [hojas, setHojas] = useState([]);
   const [colores, setColores] = useState([]);
+  const [opciones, setOpciones] = useState([]);
   const [caras, setCaras] = useState([
     {
       PK_cara: 1,
@@ -35,6 +36,7 @@ const CopiasTablaDetalle = ({ filas, setFilas, validar }) => {
       console.error("Error al cargar los datos", error.response.data);
     }
   };
+
 
   useEffect(() => {
     obtenerHojas(); // Llamar la función
@@ -72,6 +74,15 @@ const CopiasTablaDetalle = ({ filas, setFilas, validar }) => {
     setFilas((prevFilas) =>
       prevFilas.map((fila) =>
         fila.id === id ? { ...fila, precio: nuevoPrecio } : fila
+      )
+    );
+    actualizarImporte(id);
+  };
+
+    const actualizarCantidad = (id, nuevaCantidad) => {
+    setFilas((prevFilas) =>
+      prevFilas.map((fila) =>
+        fila.id === id ? { ...fila, cantidad: nuevaCantidad } : fila
       )
     );
     actualizarImporte(id);
@@ -137,7 +148,16 @@ const CopiasTablaDetalle = ({ filas, setFilas, validar }) => {
               key={fila.id}
               className="hover:bg-gray-100 border-b border-gray-200"
             >
-              <td className="py-2 px-4">{fila.cantidad}</td>
+              <td className="py-2 px-4">
+                 <input
+                  type="number"
+                  value={fila.cantidad}
+                  onChange={(e) =>
+                    actualizarCantidad(fila.id, parseInt(e.target.value) || 0)
+                  }
+                  className="w-20 border rounded-md p-1"
+                />
+              </td>
               <td className="py-2 px-4">{fila.tipo_impresion}</td>
               <td className="py-2 px-4">
                 <input
